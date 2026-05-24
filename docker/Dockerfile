@@ -15,11 +15,10 @@ COPY requirements_api.txt .
 RUN pip install --upgrade pip
 RUN pip install -r requirements_api.txt
 
-# Copy Entire Project
 COPY . .
 
-# Expose API Port
+# Default Port
 EXPOSE 8501
 
-# Start FastAPI Application
-CMD ["uvicorn", "src.river_water_quality_predictor:app", "--host", "0.0.0.0", "--port", "8501"]
+# Start FastAPI
+CMD ["sh", "-c", "uvicorn src.river_water_quality_predictor:app --host 0.0.0.0 --port ${PORT:-8501}"]

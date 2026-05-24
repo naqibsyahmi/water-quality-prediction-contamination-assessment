@@ -12,6 +12,7 @@ pystac
 odc-stac
 ipykernel
 google-cloud-bigquery
+google-auth
 fastapi
 uvicorn
 requests
