@@ -1,0 +1,37 @@
+# Python Cache
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual Environment
+venv
+
+# Jupyter
+.ipynb_checkpoints
+*.ipynb
+
+# Git
+.git
+.gitignore
+
+# Logs
+*.log
+
+# Data
+data
+
+# Shell Scripts
+*.sh
+
+# Ignore Unused Source Files
+src/inference.py
+src/inference_api.py
+
+# Ignore Unused Models
+model/xgb_model.pkl
+
+# Temporary Files
+tmp
+temp
+
