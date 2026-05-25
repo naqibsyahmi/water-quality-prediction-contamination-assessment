@@ -33,9 +33,11 @@ headers = {"Authorization": f"Bearer {token}"}
 def main():
     print("\nStarting API inference...\n")
     for idx, row in test_df.iterrows():
+
+        clean_row = row.replace([float("inf"), float("-inf")], 0).fillna(0)
         
         # Convert row into JSON payload
-        payload = {"features": row.to_dict()}
+        payload = {"features": clean_row.to_dict()}
     
         try:
             # Send request
