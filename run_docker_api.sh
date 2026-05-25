@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Stop Existing Container
+
 echo "Stopping existing container..."
 
 docker stop river-water-quality-container 2>/dev/null
@@ -11,5 +12,6 @@ echo "Starting Docker container..."
 
 docker run \
     --name river-water-quality-container \
+    --env-file .env \
     -p 8501:8501 \
     river-water-quality-api
