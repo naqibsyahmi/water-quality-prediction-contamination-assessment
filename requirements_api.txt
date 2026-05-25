@@ -7,3 +7,4 @@ uvicorn
 requests
 numpy
 joblib
+python-dotenv

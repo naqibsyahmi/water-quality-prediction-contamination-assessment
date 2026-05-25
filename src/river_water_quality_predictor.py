@@ -7,11 +7,12 @@ import pandas as pd
 import requests
 
 
+from dotenv import load_dotenv
 from datetime import datetime
 from fastapi import FastAPI
 from pydantic import BaseModel
 
-from telegram_config import (TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID)
+load_dotenv()
 
 app = FastAPI(
     title="River Water Quality Prediction & Contamination Detection API",
@@ -19,6 +20,8 @@ app = FastAPI(
     version="1.0"
 )
 
+TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN")
+TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID")
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MODEL_DIR = os.path.join(BASE_DIR, "model")
 

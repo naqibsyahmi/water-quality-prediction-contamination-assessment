@@ -1,47 +1,3 @@
-
-*.html
-
-# ======================================================
-# Build Artifacts
-# ======================================================
-
-build/
-dist/
-*.egg-info/
-
-# ======================================================
-# Ignore Unused Files
-# ======================================================
-
-src/inference.py
-src/inference_api.py
-
-# ======================================================
-# Ignore Unused Models
-# ======================================================
-
-model/xgb_model.pkl
-EOF
-
-git rm -r --cached .
-git rm -r --cached -f .gemini
-clear
-git rm -r --cached -f .
-git add .
-git status
-git commit -m "Initial commit"
-git config --global user.name "naqibsyahmi"
-git config --global user.email "naqibsyahmi12@gmail.com"
-git commit -m "Initial commit"
-git push
-cat > .gitignore <<EOF
-# ======================================================
-# Python Cache
-# ======================================================
-
-__pycache__/
-*.pyc
-*.pyo
 *.pyd
 
 # ======================================================
@@ -498,3 +454,47 @@ model/xgb_model.pkl
 git remote add origin https://github.com/naqibsyahmi/river-water-quality-prediction-contamination-detectio
 git remote -v
 git add .
+git push
+source venv/bin/activate
+cd src
+python inference_docker_api.py
+git add .
+git commit -m "modified docker sh file"
+echo ".bash_history" >> .gitignore
+git add .
+git commit -m "modified docker sh file"
+git push
+clear
+cd ..
+docker images
+docker tag river-water-quality-api asia-southeast1-docker.pkg.dev/river-water-quality-prediction/river-water-quality-repo/river-water-quality-api
+docker push asia-southeast1-docker.pkg.dev/river-water-quality-prediction/river-water-quality-repo/river-water-quality-api
+gcloud auth configure-docker asia-southeast1-docker.pkg.dev
+docker push asia-southeast1-docker.pkg.dev/river-water-quality-prediction/river-water-quality-repo/river-water-quality-api
+gcloud run deploy river-water-quality-api --image asia-southeast1-docker.pkg.dev/river-water-quality-prediction/river-water-quality-repo/river-water-quality-api --platform managed --region asia-southeast1 --allow-unauthenticated --memory 8Gi --cpu 2
+clear
+python inference_cloud_run_api.py
+cd src
+python inference_cloud_run_api.py
+python inference_cloud_run_api.py
+python inference_cloud_run_api.py
+clear
+cd ..
+pip install -r requirements.txt
+clear
+cd src
+python inference_cloud_run_api.py
+clear
+python inference_cloud_run_api.py
+echo "telegram.txt" >> .gitignore
+cd ..
+git add .
+git rm --cached telegram.txt
+git commit -m "completed cloud run implementation"
+git push
+rm src/.dockerignore
+rm src/.gitignore
+git add .
+git rm --cached telegram.txt
+git commit -m "remove accidental created gitignore and dockerignore in src folder"
+git push
