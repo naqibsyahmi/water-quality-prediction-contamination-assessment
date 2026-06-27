@@ -6,22 +6,16 @@ import torch.nn as nn
 import pandas as pd
 import requests
 
-
-from dotenv import load_dotenv
 from datetime import datetime
 from fastapi import FastAPI
 from pydantic import BaseModel
 
-load_dotenv()
-
 app = FastAPI(
     title="River Water Quality Prediction & Contamination Detection API",
-    description="Hybrid NN-XGBoost River Water Quality Prediction Endpoint",
+    description="River Water Quality Prediction Endpoint",
     version="1.0"
 )
 
-TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN")
-TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID")
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MODEL_DIR = os.path.join(BASE_DIR, "model")
 
@@ -60,45 +54,7 @@ num_features = len(feature_cols)
 nn_model = WaterQualityNN(num_features)
 
 nn_model.load_state_dict(torch.load(os.path.join(MODEL_DIR, "best_nn_model.pth"), map_location=torch.device("cpu")))
-nn_model.eval()
-
-def send_telegram_alert(predicted_wqi, contamination_level):
-    message = (
-        f"River Water Quality Alert\n\n"
-        f"Predicted WQI: {predicted_wqi:.2f}\n"
-        f"Contamination Level: "
-        f"{contamination_level}\n\n"
-        f"Potential contamination detected.\n"
-        f"Immediate inspection recommended.\n\n"
-        f"Timestamp: {datetime.now()}"
-    )
-
-    telegram_url = (
-        f"https://api.telegram.org/bot"
-        f"{TELEGRAM_BOT_TOKEN}/sendMessage"
-    )
-    payload = {
-        "chat_id": TELEGRAM_CHAT_ID,
-        "text": message
-    }
-
-    try:
-        response = requests.post(
-            telegram_url,
-            json=payload,
-            timeout=10
-        )
-
-        if response.status_code == 200:
-            print("Telegram alert sent successfully.")
-
-        else:
-            print(f"Telegram alert failed: " f"{response.status_code}")
-            print(response.text)
-
-    except Exception as e:
-        print(f"Telegram exception: {e}")
-        
+nn_model.eval()      
 
 def get_contamination_level(wqi):
     if wqi >= 90:
@@ -115,7 +71,6 @@ def get_contamination_level(wqi):
 class WaterQualityRequest(BaseModel):
     features: dict
 
-
 @app.get("/")
 def health_check():
     return {"status": "healthy", "message": "River Water Quality Prediction API is running"}
@@ -126,7 +81,9 @@ def predict_river_water_quality(request: WaterQualityRequest):
     
     # Convert incoming JSON into dataframe
     input_df = pd.DataFrame([request.features])
-    input_df = input_df[feature_cols]
+    input_df = input_df.reindex(columns=feature_cols)
+    input_df = input_df.apply(pd.to_numeric, errors="coerce")
+    input_df = input_df.fillna(0)
 
     # Scale features
     scaled_input = scaler.transform(input_df)
@@ -152,6 +109,5 @@ def predict_river_water_quality(request: WaterQualityRequest):
 
     if contamination_level in ["Marginal", "Poor"]:
         alert_triggered = True
-        send_telegram_alert(predicted_wqi, contamination_level)
 
     return {"predicted_wqi": round(predicted_wqi, 2), "contamination_level": contamination_level, "alert_triggered": alert_triggered}

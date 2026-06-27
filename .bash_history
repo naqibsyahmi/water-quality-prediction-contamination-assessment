@@ -1,29 +1,3 @@
-*.pyd
-
-# ======================================================
-# Virtual Environment
-# ======================================================
-
-venv/
-
-# ======================================================
-# Jupyter
-# ======================================================
-
-.ipynb_checkpoints/
-
-# ======================================================
-# Cache
-# ======================================================
-
-.cache/
-.config/
-.local/
-.ipython/
-.jupyter/
-
-# ======================================================
-# Gemini
 # ======================================================
 
 .gemini/
@@ -498,3 +472,29 @@ git add .
 git rm --cached telegram.txt
 git commit -m "remove accidental created gitignore and dockerignore in src folder"
 git push
+cd ..
+mkdir cloud_function
+pwd
+cd cloud_function
+gcloud functions deploy automated-river-water-quality-monitoring --gen2 --runtime python312 --region asia-southeast1 --source . --entry-point automated_monitoring --trigger-http --allow-unauthenticated
+gcloud services enable cloudfunctions.googleapis.com cloudbuild.googleapis.com artifactregistry.googleapis.com run.googleapis.com eventarc.googleapis.com
+gcloud projects describe river-water-quality-prediction --format="value(projectNumber)"
+gcloud projects add-iam-policy-binding river-water-quality-prediction --member="serviceAccount:988886574897-compute@developer.gserviceaccount.com" --role="roles/cloudbuild.builds.builder"
+gcloud auth list
+gcloud auth login
+gcloud config set account naqibsyahmi12@gmail.com
+gcloud auth list
+gcloud projects add-iam-policy-binding river-water-quality-prediction --member="serviceAccount:988886574897-compute@developer.gserviceaccount.com" --role="roles/cloudbuild.builds.builder"
+clear
+gcloud functions deploy automated-river-water-quality-monitoring --gen2 --runtime python312 --region asia-southeast1 --source . --entry-point automated_river_water_quality_monitoring --trigger-http --allow-unauthenticated
+cd src
+gcloud functions deploy automated-river-water-quality-monitoring --gen2 --runtime python312 --region asia-southeast1 --source . --entry-point automated_river_water_quality_monitoring --trigger-http --allow-unauthenticated
+cd ..
+cd cloud_function
+gcloud functions deploy automated-river-water-quality-monitoring --gen2 --runtime python312 --region asia-southeast1 --source . --entry-point automated_river_water_quality_monitoring --trigger-http --allow-unauthenticated
+gcloud functions deploy automated-river-water-quality-monitoring --gen2 --runtime python312 --region asia-southeast1 --source . --entry-point automated_river_water_quality_monitoring --trigger-http --allow-unauthenticated
+clear
+gcloud services enable cloudscheduler.googleapis.com
+gcloud scheduler jobs create http river-water-quality-monitoring-job --location=asia-southeast1 --schedule="0 9 * * *" --uri="https://asia-southeast1-river-water-quality-prediction.cloudfunctions.net/automated-river-water-quality-monitoring" --http-method=GET
+gcloud scheduler jobs list
+gcloud scheduler jobs list --location=asia-southeast1
