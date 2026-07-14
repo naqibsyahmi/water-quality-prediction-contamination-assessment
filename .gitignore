@@ -126,3 +126,4 @@ src/inference_api.py
 
 model/xgb_model.pkl
 .env
+.bash_history
