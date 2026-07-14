@@ -21,4 +21,4 @@ COPY . .
 EXPOSE 8501
 
 # Start FastAPI
-CMD ["sh", "-c", "uvicorn src.river_water_quality_predictor:app --host 0.0.0.0 --port ${PORT:-8501}"]
+CMD ["sh", "-c", "uvicorn src.water_quality_predictor:app --host 0.0.0.0 --port ${PORT:-8501}"]
