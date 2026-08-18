@@ -124,6 +124,6 @@ src/inference_api.py
 # Ignore Unused Models
 # ======================================================
 
-model/xgb_model.pkl
+model/
 .env
 .bash_history
