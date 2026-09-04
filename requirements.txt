@@ -18,3 +18,5 @@ uvicorn
 requests
 numpy
 shap
+functions-framework==3.*
+google-cloud-storage
