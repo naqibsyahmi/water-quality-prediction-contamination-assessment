@@ -4,25 +4,25 @@
 
 ### ❗️**Problem Statement**
 
-Existing water quality prediction studies have demonstrated strong predictive performance, with reported coefficient of determination (R2) values ranging between approximately 0.74 and 0.99 across different machine learning techniques and water quality datasets. These findings indicate the potential of machine learning approaches to support accurate water quality prediction and contamination assessment.
+Machine learning has achieved strong results in water quality prediction, with previous studies reporting coefficient of determination (R2) values of approximately 0.74 to 0.99 across different modeling approaches and datasets. These findings demonstrate that data-driven methods can provide accurate predictions when evaluated within their respective study settings.
 
-Despite these promising results, many existing studies develop and evaluate their models using datasets collected from a single water system, geographical region or environmental setting (Abbas et al., 2024; del Castillo et al., 2024; Dodig et al., 2024; Li et al., 2023; Perumal et al., 2023). Since environmental characteristics and water quality conditions may vary across geographical regions, it remains uncertain whether the predictive performance achieved within one environmental setting can be maintained when the model is applied to different environmental conditions.
+However, much of the existing evidence is based on models developed and tested using data from a single river system, geographical region, or environmental setting (Abbas et al., 2024; del Castillo et al., 2024; Dodig et al., 2024; Li et al., 2023; Perumal et al., 2023). Because water quality characteristics and environmental conditions differ between regions, strong performance within one study area does not necessarily indicate that the same level of performance will be retained when the model is applied elsewhere.
 
-Consequently, although high predictive performance is often achieved within individual study areas, limited evidence is available regarding whether these models can maintain similar predictive performance when applied across different environmental conditions. As a result, the broader applicability of existing water quality prediction models beyond their original study areas remains uncertain.
+This creates an important limitation in the current literature. Although many models demonstrate high predictive accuracy in their original study environments, there is comparatively limited evidence showing how well their performance is maintained when evaluated under different regional conditions. Consequently, the extent to which existing water quality prediction models can be applied beyond the environments in which they were developed remains unclear.
 
-Therefore, there is a need to evaluate water quality prediction models using datasets from multiple geographical regions to better understand and improve their generalizability across different environmental conditions. To address this research gap, this research aims to develop and evaluate a machine learning model using datasets collected from multiple geographical regions to assess its predictive performance and generalizability across different environmental conditions. The developed model is subsequently integrated into an integrated machine learning framework that supports water quality prediction and contamination assessment through the integration of machine learning techniques, multi-source water quality data, and real-time inference capabilities.
+Addressing this limitation requires evaluation strategies that incorporate data from more than one geographical region. Accordingly, this research develops and evaluates a machine learning model using water quality data from multiple regional settings to examine both predictive performance and generalizability. The resulting model is further incorporated into an integrated machine learning framework that combines multi-source environmental data with automated inference and contamination assessment capabilities.
 
 ### ❓ **Research Questions**
 
 1. What are the limitations of existing approaches for water quality prediction and contamination assessment?
-2. How can machine learning techniques improve the generalizability of water quality prediction across different environmental conditions?
-3. How effective is the developed machine learning model for water quality prediction across different environmental conditions?
+2. How can a machine learning model be developed for water quality prediction across different environmental conditions?
+3. How effective is the developed machine learning model for water quality prediction in terms of predictive performance and generalizability across different environmental conditions?
 
 ### 🎯 **Research Objectives**
 
 1. To identify the limitations of existing approaches for water quality prediction and contamination assessment.
-2. To develop a machine learning model for water quality prediction with improved generalizability across different environmental conditions.
-3. To evaluate the predictive performance and generalizability of the developed machine learning model across different environmental conditions.
+2. To develop a machine learning model for water quality prediction across different environmental conditions.
+3. To evaluate the predictive performance and generalizability of the developed machine learning model for water quality prediction across different environmental conditions.
 
 ## 🚀 **Getting Started**
 
